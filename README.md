@@ -1,41 +1,42 @@
-# Mother's Day Tribute | Digital Edition
+# Mother's Day Tribute | Tropical Edition
 
-An elegantly curated, single-page web experience designed as a professional digital tribute. This project prioritizes sophisticated typography, subtle motion design, and a minimalist aesthetic to create a premium greeting experience.
+A sophisticated, Pacific-inspired digital experience designed as a professional Mother's Day tribute. This project integrates minimalist design principles with high-fidelity SVG animations and refined typography to provide a premium celebratory presentation.
 
-## Design Overview
+## Design Philosophy
 
-The application utilizes a refined color palette of Deep Madder and Muted Gold, set against a Natural Cream parchment background.
+The application is built around a tropical-modern aesthetic, moving away from conventional motifs in favor of a clean, high-end island atmosphere.
 
-- **Typography:** Leverages the high-contrast serifs of Playfair Display for headings and the clean, modern geometric lines of Lato for body text.
-- **Vector Graphics:** Replaces standard iconography with custom SVG paths to ensure crisp rendering on high-density displays.
-- **Atmospheric Motion:** A custom JavaScript-driven animation engine simulates falling floral petals using lightweight SVG elements, maintaining 60fps performance across mobile and desktop devices.
+- **Color Palette:** The interface utilizes a curated scheme of Deep Madder and Muted Gold, contrasted against a Natural Cream and Pearl background to evoke a sense of professional warmth.
+- **Typography:** The high-contrast serifs of Playfair Display are used for headings to convey tradition and respect, while Lato provides a clean, modern geometric foundation for body text.
+- **Thematic Assets:** Standard icons have been replaced with custom SVG paths representing tropical flora and Pacific motifs, ensuring crisp rendering across all viewport resolutions.
+- **Motion Design:** A lightweight JavaScript engine drives an atmospheric background of falling hibiscus and foliage shapes, optimized for 60fps performance on both mobile and desktop hardware.
 
-## Deployment Instructions
+## Deployment Specifications
 
-The project is architected as a self-contained, single-file application (`mothers-day-card.html`) for seamless deployment.
+This project is architected as a self-contained, single-file application for maximum portability and ease of deployment.
 
-### Automated Deployment via GitHub Pages:
+### GitHub Pages Deployment
 
-1.  **Repository Setup:** Commit `mothers-day-card.html` to a new or existing GitHub repository.
-2.  **Naming Convention:** For a root-level URL, it is recommended to rename the file to `index.html`.
-3.  **Activation:**
-    - Navigate to `Settings` > `Pages` in your repository.
-    - Under "Build and deployment," select the `main` branch.
-    - Your tribute will be accessible at `https://[your-username].github.io/[repo-name]/`.
+1. **Repository Configuration:** Commit the core HTML file to a dedicated GitHub repository.
+2. **Indexing:** For optimal URL structure, rename the file to `index.html`.
+3. **Activation:**
+   - Navigate to `Settings` > `Pages` within the repository.
+   - Select the `main` branch under "Build and Deployment."
+   - The tribute will be live at the generated GitHub IO subdirectory.
 
-## Technical Specifications
+## Technical Architecture
 
-- **File Format:** Standard HTML5 / CSS3 / Vanilla JavaScript.
-- **Dependencies:** Zero external libraries; utilizes Google Fonts API for typography.
-- **Responsive Engine:** Employs CSS Grid and Flexbox with a mobile-first approach to ensure compatibility with iOS and Android devices.
+- **Engine:** Standard HTML5, CSS3, and Vanilla JavaScript.
+- **Optimization:** Zero external library dependencies to ensure rapid load times and high privacy standards.
+- **Responsiveness:** Utilizes CSS Grid and Flexbox with fluid unit scaling to maintain a consistent visual experience across iOS, Android, and desktop environments.
 
-## Configuration
+## Customization and Configuration
 
-To modify the content or aesthetic, locate the following sections within `mothers-day-card.html`:
+The application is designed for easy modification via the source file:
 
-- **Visual Variables:** CSS Custom Properties located in the `:root` pseudo-class.
-- **Message Content:** Text nodes within the `main-message` and `mini-card-message` classes.
-- **Motion Timing:** The `CONFIG` object within the `<script>` block at the bottom of the document.
+- **Visual Styling:** Locate the CSS Custom Properties within the `:root` pseudo-class at the top of the style block.
+- **Content Management:** Update the text nodes within the `main-message` and `mini-card-message` classes for personalized messaging.
+- **Animation Parameters:** Adjust the `CONFIG` object within the script block to modify petal density and animation velocity.
 
 ---
-*Developed with precision for a sophisticated Mother's Day presentation.*
+*Developed with precision for a professional digital presentation.*
