@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mother's Day | A Tribute</title>
+
+  <!-- Google Fonts: Playfair Display (title) + Lato (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream:        #fffbf7; 
+      --blush:        #fdf2f0; 
+      --blush-mid:    #e8d5d2; 
+      --deep-red:     #8d2d2a; 
+      --muted-gold:   #c5a059;
+      --white:        #ffffff;
+      --card-bg:      #ffffff;
+      --text-dark:    #2c1e1d;
+      --text-mid:     #5a4a49;
+      --shadow:       rgba(0, 0, 0, 0.05);
+      --font-title:   'Playfair Display', Georgia, serif;
+      --font-body:    'Lato', 'Helvetica Neue', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: radial-gradient(circle at center, #ffffff 0%, #fffbf7 100%);
+    }
+
+    #petals-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .petal-svg {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      fill: var(--blush-mid);
+      opacity: 0.6;
+      top: -50px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    #sparkles-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: var(--muted-gold);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 800px;
+      padding: 2rem;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #envelope {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background: var(--blush-mid);
+      border-radius: 2px;
+      box-shadow: 0 20px 40px var(--shadow);
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      margin: 4rem 0;
+    }
+
+    #envelope:hover { transform: translateY(-5px); }
+
+    #envelope::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid var(--blush);
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 2;
+    }
+
+    #envelope.open::before { transform: rotateX(180deg); }
+
+    .envelope-label {
+      position: absolute;
+      bottom: 30px;
+      left: 0; width: 100%;
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      z-index: 1;
+    }
+
+    .seal-icon {
+      position: absolute;
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      z-index: 3;
+      transition: opacity 0.3s ease;
+      fill: var(--deep-red);
+    }
+
+    #envelope.open .seal-icon { opacity: 0; }
+
+    #main-card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 600px;
+      padding: 4rem 3rem;
+      border-radius: 4px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+      border-top: 1px solid var(--blush-mid);
+      animation: fadeIn 1s ease-out;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .main-message {
+      font-size: 1.1rem;
+      line-height: 2;
+      color: var(--text-mid);
+      margin-bottom: 3rem;
+      white-space: pre-line;
+      font-weight: 300;
+    }
+
+    .mini-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .mini-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border: 1px solid var(--blush-mid);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mini-card:hover { border-color: var(--muted-gold); background: var(--blush); }
+
+    .mini-card-icon-svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--muted-gold);
+      margin-bottom: 0.8rem;
+    }
+    
+    .mini-card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-dark);
+    }
+
+    .mini-card-message {
+      font-family: var(--font-title);
+      font-style: italic;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.5s ease;
+      color: var(--text-mid);
+    }
+
+    .mini-card.open .mini-card-message {
+      max-height: 200px;
+      opacity: 1;
+    }
+
+    .card-footer {
+      margin-top: 4rem;
+      font-family: var(--font-title);
+      font-size: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted-gold);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="petals-container" aria-hidden="true"></div>
+  <div id="sparkles-container" aria-hidden="true"></div>
+
+  <section id="envelope-screen" class="screen active">
+    <h2 style="font-family: var(--font-title); font-weight: 400; margin-bottom: 2rem; letter-spacing: 1px;">A message for you</h2>
+    <div id="envelope" role="button" aria-label="Open invitation">
+      <svg class="seal-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <div class="envelope-label">For Mother</div>
+    </div>
+    <p style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid);">Select to open</p>
+  </section>
+
+  <section id="card-screen" class="screen">
+    <div id="main-card">
+      <h1>Happy Mother's Day</h1>
+      
+      <p class="main-message">Dear Mom,
+
+Thank you for your enduring support and for being a constant source of strength. Your influence has shaped who I am today, and I am profoundly grateful for everything you do.
+
+I miss you and look forward to our next visit.
+
+With love, 
+Hana</p>
+
+      <div class="mini-cards-grid">
+        
+        <div class="mini-card">
+          <svg class="mini-card-icon-svg" viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+          <span class="mini-card-title">A Reflection</span>
+          <p class="mini-card-message">
+            I hope today brings you a sense of peace and the quiet rest you truly deserve.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <svg class="mini-card-icon-svg" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          <span class="mini-card-title">Gratitude</span>
+          <p class="mini-card-message">
+            Your patience and care have been the foundation of my life. I am fortunate to have you.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <svg class="mini-card-icon-svg" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+          <span class="mini-card-title">Devotion</span>
+          <p class="mini-card-message">
+            Thank you for consistently being my greatest advocate. Your belief in me means everything.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="card-footer">
+        Hau'oli Lā Makuahine
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const CONFIG = {
+      petalCount: 15,
+      sparkleCount: 20,
+      cardRevealDelay: 600,
+    };
+
+    const envelope = document.getElementById('envelope');
+    const envelopeScreen = document.getElementById('envelope-screen');
+    const cardScreen = document.getElementById('card-screen');
+    const petalsContainer = document.getElementById('petals-container');
+    const sparklesContainer = document.getElementById('sparkles-container');
+    const miniCards = document.querySelectorAll('.mini-card');
+
+    function createPetals() {
+      const petalPath = "M12,2C12,2 4,10 4,15C4,19 7,22 12,22C17,22 20,19 20,15C20,10 12,2 12,2Z";
+      for (let i = 0; i < CONFIG.petalCount; i++) {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("class", "petal-svg");
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", petalPath);
+        svg.appendChild(path);
+        
+        svg.style.left = Math.random() * 100 + 'vw';
+        const duration = (Math.random() * 8 + 10);
+        const delay = (Math.random() * 15);
+        svg.style.animationDuration = duration + 's';
+        svg.style.animationDelay = -delay + 's'; 
+        petalsContainer.appendChild(svg);
+      }
+    }
+
+    function burstSparkles(x, y) {
+      for (let i = 0; i < CONFIG.sparkleCount; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        sparklesContainer.appendChild(s);
+        const destX = (Math.random() - 0.5) * 300;
+        const destY = (Math.random() - 0.5) * 300;
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        s.animate([
+          { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+          { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
+        ], {
+          duration: Math.random() * 1000 + 500,
+          easing: 'cubic-bezier(0, .9, .57, 1)'
+        }).onfinish = () => s.remove();
+      }
+    }
+
+    envelope.addEventListener('click', () => {
+      if (envelope.classList.contains('open')) return;
+      envelope.classList.add('open');
+      const rect = envelope.getBoundingClientRect();
+      burstSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      
+      setTimeout(() => {
+        envelopeScreen.style.transition = 'opacity 0.8s ease';
+        envelopeScreen.style.opacity = '0';
+        setTimeout(() => {
+          envelopeScreen.classList.remove('active');
+          cardScreen.classList.add('active');
+        }, 800);
+      }, CONFIG.cardRevealDelay);
+    });
+
+    miniCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const isOpen = card.classList.toggle('open');
+        if (isOpen) {
+          const rect = card.getBoundingClientRect();
+          burstSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        }
+      });
+    });
+
+    window.onload = createPetals;
+  </script>
+</body>
+</html>
